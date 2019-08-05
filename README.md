@@ -6,7 +6,7 @@ Windows Bench
 `Install-WindowsFeature dns -IncludeManagementTools`
 `Install-WindowsFeature -Name ad-domain-services -IncludeManagementTools`
 
-`Rename-computer –newname “dc1” -restart`
+`#Rename-computer –newname “dc1” -restart`
 
 `Add-DnsServerPrimaryZone -Name "win-bench.pri" -ZoneFile "pri.win-bench.dns" -DynamicUpdate "NonsecureAndSecure"`
 

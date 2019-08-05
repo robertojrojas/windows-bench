@@ -8,8 +8,7 @@ Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters 
 
 Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters -Name 'NV Domain' -Value 'win-bench.pri'
 
-winrm set winrm/config/service/Auth '@{Basic="true"}'
-winrm set winrm/config/service '@{AllowUnencrypted="true"}'
-
 Install-ADDSForest -DomainName "win-bench.pri" -SafeModeAdministratorPassword (Convertto-SecureString -AsPlainText "Winbench90" -Force)
 
+winrm set winrm/config/service/Auth '@{Basic="true"}'
+winrm set winrm/config/service '@{AllowUnencrypted="true"}'

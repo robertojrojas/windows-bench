@@ -23,7 +23,7 @@ func main() {
 	domain := "win-bench.pri"
 	pshell := fmt.Sprintf("Get-ADDefaultDomainPasswordPolicy -Identity %s | Select -ExpandProperty PasswordHistoryCount", domain)
 
-	if len(os.Args) > 2 {
+	if len(os.Args) > 1 {
 		pshell = os.Args[1]
 	}
 	stdout, stderr, err := shell.Execute(pshell)

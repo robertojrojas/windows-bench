@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	ps "github.com/robertojrojas/go-powershell"
-	"github.com/robertojrojas/go-powershell/backend"
+	ps "github.com/aquasecurity/go-powershell"
+	"github.com/aquasecurity/go-powershell/backend"
 )
 
 func main() {

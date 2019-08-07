@@ -6,11 +6,11 @@ Windows Remote Management
 
 `go get github.com/masterzen/winrm`
 
-`GOOS=windows CGO_ENABLED=0  go build -o DefaultPasswordHistoryCount.exe main.go`
+`make`
 
 # Run on Windows:
 
-`> DefaultPasswordHistoryCount.exe`
+`> WinRmPOC.exe`
 
 
 # Preparing the remote Windows machine for Basic authentication

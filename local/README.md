@@ -5,7 +5,7 @@ Powershell Wrapper
 
 `go get github.com/robertojrojas/go-powershell`
 
-`GOOS=windows CGO_ENABLED=0  go build -o PSWrapper.exe main.go`
+`make`
 
 # Run on Windows:
 

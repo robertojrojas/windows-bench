@@ -1,0 +1,4 @@
+github.com/aquasecurity/go-powershell v0.0.0-20190807165005-070591d67847 h1:e1w2q4MqhHsmBDe5WavHKdGqXbmlvd3f6tH8Qrgn5KA=
+github.com/aquasecurity/go-powershell v0.0.0-20190807165005-070591d67847/go.mod h1:uTcLN1HYZA/abvodzFT8Sx0HupFF7sfsYPCFHFSSgF8=
+github.com/juju/errors v0.0.0-20190806202954-0232dcc7464d h1:hJXjZMxj0SWlMoQkzeZDLi2cmeiWKa7y1B8Rg+qaoEc=
+github.com/juju/errors v0.0.0-20190806202954-0232dcc7464d/go.mod h1:W54LbzXuIE0boCoNJfwqpmkKJ1O4TCTZMetAt6jGk7Q=

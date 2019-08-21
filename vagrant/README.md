@@ -20,7 +20,7 @@ Vagrant
 
 `Disable-NetAdapterBinding –InterfaceAlias “Ethernet 2” –ComponentID ms_tcpip6`
 
-`Add-DnsServerPrimaryZone -Name "win-bench.oss" -ZoneFile "pri.win-bench.dns" -DynamicUpdate "NonsecureAndSecure"`
+`Add-DnsServerPrimaryZone -Name "win-bench.oss" -ZoneFile "oss.win-bench.dns" -DynamicUpdate "NonsecureAndSecure"`
 
 `Add-DnsServerPrimaryZone -NetworkID 192.168.22.0/24 -ZoneFile "33.168.192.in-addr.arpa.dns"  -DynamicUpdate "NonsecureAndSecure"`
 
@@ -28,7 +28,7 @@ Vagrant
 
 `Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters -Name 'NV Domain' -Value 'win-bench.oss'`
 
-`Install-ADDSForest -DomainName "win-bench.oss" -SafeModeAdministratorPassword (Convertto-SecureString -AsPlainText "Vagrant90" -Force) -Credential  (Convertto-SecureString -AsPlainText "Vagrant90" -Force)`
+`Install-ADDSForest -DomainName "win-bench.oss" -SafeModeAdministratorPassword (Convertto-SecureString -AsPlainText "Vagrant90" -Force)`
 
 
 ### Join Domain Domain Controller
@@ -43,7 +43,7 @@ Vagrant
 
 `Disable-NetAdapterBinding –InterfaceAlias “Ethernet 2” –ComponentID ms_tcpip6`
 
-`Install-ADDSDomainController -DomainName "win-bench.oss" -SafeModeAdministratorPassword (Convertto-SecureString -AsPlainText "Vagrant90" -Force) -Credential  (Convertto-SecureString -AsPlainText "Vagrant90" -Force)`
+`Install-ADDSDomainController -DomainName "win-bench.oss" -SafeModeAdministratorPassword (Convertto-SecureString -AsPlainText "Vagrant90" -Force) -Credential  (Get-Credential win-bench\administrator)`
 
 
 ### Join Domain Add Computer
@@ -58,7 +58,7 @@ Vagrant
 
 `Disable-NetAdapterBinding –InterfaceAlias “Ethernet 2” –ComponentID ms_tcpip6`
 
-`Add-Computer –DomainName "win-bench.oss"  -restart -Credential  (Convertto-SecureString -AsPlainText "Vagrant90" -Force)`
+`Add-Computer –DomainName "win-bench.oss" -restart -Credential (Get-Credential win-bench\administrator)`
 
 
 

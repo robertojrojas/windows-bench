@@ -22,7 +22,7 @@ Vagrant
 
 `Add-DnsServerPrimaryZone -Name "win-bench.oss" -ZoneFile "oss.win-bench.dns" -DynamicUpdate "NonsecureAndSecure"`
 
-`Add-DnsServerPrimaryZone -NetworkID 192.168.22.0/24 -ZoneFile "33.168.192.in-addr.arpa.dns"  -DynamicUpdate "NonsecureAndSecure"`
+`Add-DnsServerPrimaryZone -NetworkID 192.168.22.0/24 -ZoneFile "22.168.192.in-addr.arpa.dns"  -DynamicUpdate "NonsecureAndSecure"`
 
 `Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters -Name 'Domain' -Value 'win-bench.oss'`
 

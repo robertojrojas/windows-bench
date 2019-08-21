@@ -10,18 +10,55 @@ Vagrant
 `Install-WindowsFeature dns -IncludeManagementTools`
 `Install-WindowsFeature -Name ad-domain-services -IncludeManagementTools`
 
-`#Rename-computer –newname “dc1” -restart`
-
-`Add-DnsServerPrimaryZone -Name "win-bench.pri" -ZoneFile "pri.win-bench.dns" -DynamicUpdate "NonsecureAndSecure"`
-
-`Add-DnsServerPrimaryZone -NetworkID 192.168.33.0/24 -ZoneFile "33.168.192.in-addr.arpa.dns"  -DynamicUpdate "NonsecureAndSecure"`
-
-`Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters -Name 'Domain' -Value 'win-bench.pri'`
-
-`Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters -Name 'NV Domain' -Value 'win-bench.pri'`
-
-### If server is running under Vagrant, you can disable the first 'Ethernet' Network Card like this:
 `Disable-NetAdapter -Name "Ethernet" -Confirm:$false`
 
+`Remove-NetIPAddress –InterfaceAlias "Ethernet 2" –IPAddress 192.168.22.10 –PrefixLength 24`
 
-`Install-ADDSForest -DomainName "win-bench.pri" -SafeModeAdministratorPassword (Convertto-SecureString -AsPlainText "Winbench90" -Force)`
+`New-NetIPAddress –InterfaceAlias "Ethernet 2" –IPAddress 192.168.22.10 –PrefixLength 24 -DefaultGateway 192.168.22.1`
+
+`Set-DnsClientServerAddress -InterfaceAlias "Ethernet 2" -ServerAddresses 192.168.22.10`
+
+`Disable-NetAdapterBinding –InterfaceAlias “Ethernet 2” –ComponentID ms_tcpip6`
+
+`Add-DnsServerPrimaryZone -Name "win-bench.oss" -ZoneFile "pri.win-bench.dns" -DynamicUpdate "NonsecureAndSecure"`
+
+`Add-DnsServerPrimaryZone -NetworkID 192.168.22.0/24 -ZoneFile "33.168.192.in-addr.arpa.dns"  -DynamicUpdate "NonsecureAndSecure"`
+
+`Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters -Name 'Domain' -Value 'win-bench.oss'`
+
+`Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters -Name 'NV Domain' -Value 'win-bench.oss'`
+
+`Install-ADDSForest -DomainName "win-bench.oss" -SafeModeAdministratorPassword (Convertto-SecureString -AsPlainText "Vagrant90" -Force) -Credential  (Convertto-SecureString -AsPlainText "Vagrant90" -Force)`
+
+
+### Join Domain Domain Controller
+
+`Disable-NetAdapter -Name "Ethernet" -Confirm:$false`
+
+`Remove-NetIPAddress –InterfaceAlias "Ethernet 2" –IPAddress 192.168.22.11 –PrefixLength 24`
+
+`New-NetIPAddress –InterfaceAlias "Ethernet 2" –IPAddress 192.168.22.11 –PrefixLength 24 -DefaultGateway 192.168.22.1`
+
+`Set-DnsClientServerAddress -InterfaceAlias "Ethernet 2" -ServerAddresses 192.168.22.10`
+
+`Disable-NetAdapterBinding –InterfaceAlias “Ethernet 2” –ComponentID ms_tcpip6`
+
+`Install-ADDSDomainController -DomainName "win-bench.oss" -SafeModeAdministratorPassword (Convertto-SecureString -AsPlainText "Vagrant90" -Force) -Credential  (Convertto-SecureString -AsPlainText "Vagrant90" -Force)`
+
+
+### Join Domain Add Computer
+
+`Disable-NetAdapter -Name "Ethernet" -Confirm:$false`
+
+`Remove-NetIPAddress –InterfaceAlias "Ethernet 2" –IPAddress 192.168.22.21 –PrefixLength 24`
+
+`New-NetIPAddress –InterfaceAlias "Ethernet 2" –IPAddress 192.168.22.21 –PrefixLength 24 -DefaultGateway 192.168.22.1`
+
+`Set-DnsClientServerAddress -InterfaceAlias "Ethernet 2" -ServerAddresses 192.168.22.10`
+
+`Disable-NetAdapterBinding –InterfaceAlias “Ethernet 2” –ComponentID ms_tcpip6`
+
+`Add-Computer –DomainName "win-bench.oss"  -restart -Credential  (Convertto-SecureString -AsPlainText "Vagrant90" -Force)`
+
+
+
